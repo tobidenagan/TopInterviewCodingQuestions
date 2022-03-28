@@ -16,6 +16,7 @@ using System;
 
 class Program
 {
+    //hackerrank 1 week prep
     public static void plusMinus(List<int> arr)
     {
         int len = arr.Count();
@@ -65,6 +66,69 @@ class Program
         return arr.OrderBy(x => x).ToList()[middleIndex];
     }
 
+    public static int lonelyinteger(List<int> a)
+    {
+        return a.GroupBy(x => x).First(g => g.Count() == 1).Select(x => x).ToList()[0];
+        
+    }
+
+    public static int diagonalDifference(List<List<int>> arr)
+    {
+        int len = arr[0].Count;
+        int sumA = 0, sumB = 0;
+
+        for (int i = 0, j = len - 1; i < len; i++, j--)
+        {
+            sumA += arr[i][i];
+            sumB += arr[i][j];
+        }
+
+        return Math.Abs(sumA - sumB);
+
+    }
+
+    public static List<int> countingSort(List<int> arr)
+    {
+        int len = arr.Count;
+
+        List<int> returnList = new List<int>();
+
+        returnList.AddRange(Enumerable.Repeat(0, 100));
+
+        for (int i = 0; i < len; i++)
+        {
+            returnList[arr[i]] += 1;
+        }
+        
+        return returnList;
+    }
+
+    //yet to be tested
+    public static List<int> minimalHeaviestSetA(List<int> arr)
+    {
+        //not yet tested completed
+        int sumA = 0, sumB = 0;
+
+        int len = arr.Count;
+
+        int sum = arr.Sum();
+        List<int> newList = new List<int>();
+        for (int i = 1; i <= len / 2; i++)
+        {
+            newList.Clear();
+            newList = arr.GroupBy(x => x).Where(g => g.Count() == 1).Select(x => x.Key).
+                OrderByDescending(x => x).Take(i).OrderBy(x => x).ToList();
+            sumA = newList.Sum();
+
+            sumB = sum - sumA;
+            if (sumA > sumB)
+            {
+                return newList;
+            }
+        }
+
+        return arr;
+    }
 
 }
 
@@ -72,8 +136,15 @@ class Solution
 {
     public static void Main(string[] args)
     {
-        List<int> a = new List<int> { 1, 2, 3, 77, 9, 5, 7};
-        Program.findMedian(a);
+        //List<List<int>> a = new List<List<int>>
+        //{
+        //    new List<int>{ 1, 2, 3 },
+        //    new List<int>{ 4, 5, 6 },
+        //    new List<int>{ 7, 8, 9 }
+        //};
+
+        List<int> a = new List<int> { 1, 1, 2, 3 };
+        Program.countingSort(a);
     }
 }
 
